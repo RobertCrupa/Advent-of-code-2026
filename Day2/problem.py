@@ -31,32 +31,25 @@ class process():
             num = math.floor(num / 10)
         return res
     
-    def is_silly(self, count, num) -> bool:
-        compare = num % (10 ** count)
-        print(f"is silly {num} count {count}")
-
-        for _ in range(count):
-            num //= 10
-
-        print(f"num {num}, compare {compare}")
-
-        return compare == num
+    def is_silly(self, num):
+        s = str(num)
+        for i in range(2, len(s) + 1):
+            if len(s) % i == 0 and s[:len(s) // i] * i == s:
+                print(f"num {num} is good ")
+                self.sum += num
+                break
+        
 
 
     def process(self,left: int, right: int):
         for i in range(left, right):
-            count = self.count_digit(i)
-            if count % 2 != 0:
-                continue
 
-            if self.is_silly(int(count / 2), i):
-                self.sum += i
-                print("summing ", i)
+            self.is_silly(i)
             
 
 
 
-with open("Day2/example.txt", 'r') as f:
+with open("Day2/input.txt", 'r') as f:
     solver = process()
 
     for line in f:
